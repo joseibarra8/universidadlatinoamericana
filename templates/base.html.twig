@@ -20,7 +20,7 @@
 
 <body>
     <header>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark navbar-bg bg-dark {{ app.session.flashbag.peek('success')|length > 0 ? '' : 'mb-5' }}">
         <div class="container">
 
             <a class="navbar-brand" href="{{ path('welcomes') }}">Inicio</a>
@@ -36,6 +36,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('contact') }}">Contacto</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('registra_usuario') }}">Registrar Usuario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('edit_user') }}">Actualizar Usuario</a>
+                    </li>
                 </ul>
             </div>
 
@@ -44,6 +50,11 @@
     </header>
 
     <main role="main" class="container main">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
         {% block main %}{% endblock main %}
          <!--{{ dump() }}
          Hello, {{ app.request.query.get('var') | default('CodeReviewVideos') }} -->

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+        <div>
+            <p class="lead">
+            <form>
+                <div class="input-group mb-3">
+                    <input type="text"
+                           name="q"
+                           class="form-control"
+                           value="{{ app.request.query.get('q') }}"
+                           placeholder="Buscar..."
+                    >
+                    <div class="input-group-append">
+                        <button type="submit"
+                                class="btn btn-outline-secondary">
+                            <span class="fa fa-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Correo</th>
+                    <th>Username</th>
+                    <th>Rol</th>
+                    <th>Editar</th>
+                </tr>
+                </thead>
+                <tbody>
+                	{% for user in usuarios %}
+					<tr>
+                        <td>{{ user.nombre }}</td>
+                        <td>{{ user.apellidopaterno }}</td>
+                        <td>{{ user.apellidomaterno }}</td>
+                        <td>{{ user.correo }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.rol }}</td>
+                        <td><a href="{{ path('modifica_user', {'variable': user.id}) }}">Editar</a></td>
+                    </tr>
+                   {% endfor %}
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            No se encontraron resultados para {{ app.request.query.get('q') }}
+                        </td>
+                    </tr>
+                 
+                </tbody>
+            </table>
+            </p>
+        </div>
+{% endblock %}
